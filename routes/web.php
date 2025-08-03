@@ -1,11 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthManager;
+use App\Http\Controllers\TaskManager;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
 
 Route::get('login', [AuthManager::class, 'login'])
     ->name('login');
@@ -19,3 +17,12 @@ Route::get('register', [AuthManager::class, 'register'])
 Route::post('register', [AuthManager::class, 'registerPost'])
     ->name('register.post');
 
+Route::middleware(['auth'])->group(function () { //only authenticated users can access these routes
+    Route::get('/', [TaskManager::class, 'listTasks'])->name('home');
+
+    // Grouping all task routes under /tasks
+    Route::prefix('tasks')->name('tasks.')->group(function () {
+        Route::get('add', [TaskManager::class, 'addTask'])->name('add');
+        Route::post('add', [TaskManager::class, 'addTaskPost'])->name('add.post');
+    });
+});
