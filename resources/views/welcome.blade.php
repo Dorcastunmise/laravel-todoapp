@@ -14,6 +14,11 @@
     @endif
 
     <div class="my-3 p-4" style="background: rgba(255, 255, 255, 0.55); border-radius: 16px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);">
+      <div class="mb-3 mt-1" style="font-size: 20px; font-weight: 500;">
+        <span style="color: #6c757d;">Welcome</span> 
+        <span style="color: #0d6efd;">{{ auth()->user()->name }}</span>
+      </div>
+
       <h6 class="border-bottom pb-2 mb-3" style="font-weight: 600; font-size: 20px; color: #34495e;">Pending Tasks</h6>
 
       @foreach($tasks as $task)
@@ -52,7 +57,9 @@
             <div class="d-flex align-items-start gap-2">
               <!-- Update Status -->
               <a href="{{ route('tasks.update.status', $task->id) }}"
-                style="background-color: #198754; color: #ffffff; padding: 6px 14px; border-radius: 6px; font-size: 14px; font-weight: 500; text-decoration: none; display: flex; align-items: center; justify-content: center;"
+                style="background: rgba(25, 135, 84, 0.9); color: #fff; padding: 6px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; text-decoration: none; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px); box-shadow: 0 4px 12px rgba(25, 135, 84, 0.3); transition: all 0.3s ease-in-out;"
+                onmouseover="this.style.background='rgba(21, 112, 70, 1)'; this.style.transform='scale(1.05)'"
+                onmouseout="this.style.background='rgba(25, 135, 84, 0.9)'; this.style.transform='scale(1)'"
                 class="btn btn-success">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                   fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -64,8 +71,10 @@
 
               <!-- Delete Task -->
               <a href="{{ route('tasks.delete', $task->id) }}"
-                style="background-color: #dc3545; color: #ffffff; padding: 6px 14px; border-radius: 6px; font-size: 14px; font-weight: 500; text-decoration: none; display: flex; align-items: center; justify-content: center;"
-                class="btn btn-danger">
+                  style="background: rgba(220, 53, 69, 0.9); color: #fff; padding: 6px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; text-decoration: none; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px); box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3); transition: all 0.3s ease-in-out;"
+                  onmouseover="this.style.background='rgba(180, 40, 55, 1)'; this.style.transform='scale(1.05)'"
+                  onmouseout="this.style.background='rgba(220, 53, 69, 0.9)'; this.style.transform='scale(1)'"
+                  class="btn btn-danger">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                   fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-trash">
                   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
