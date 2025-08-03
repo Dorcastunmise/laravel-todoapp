@@ -9,7 +9,7 @@ class TaskManager extends Controller
 {
     function listTasks()
     {
-        $tasks = Tasks::all();
+        $tasks = Tasks::where('status', 'pending')->get();
         return view('welcome', compact('tasks'));
     }
     function addTask() //request not needed as we're just returning a view
@@ -55,5 +55,5 @@ class TaskManager extends Controller
                     ->with('error', 'Failed to update task status.');
         }
     }
-    
+
 }
