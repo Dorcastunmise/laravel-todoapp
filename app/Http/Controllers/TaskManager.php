@@ -47,6 +47,13 @@ class TaskManager extends Controller
 
     function updateTaskStatus($id)
     {
-        $task = Tasks::where('id', $id)->first(); 
+        if(Tasks::where('id', $id)->update(['status' => 'completed'])){
+            return redirect()->route('home')
+                    ->with('success', 'Task status updated successfully!');
+        } else {
+            return redirect()->route('home')
+                    ->with('error', 'Failed to update task status.');
+        }
     }
+    
 }

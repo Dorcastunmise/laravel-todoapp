@@ -22,6 +22,7 @@ Route::middleware(['auth'])->group(function () { //only authenticated users can 
 
     // Grouping all task routes under /tasks
     Route::prefix('tasks')->name('tasks.')->group(function () {
+        Route::get('status/{id}', [TaskManager::class, 'updateTaskStatus'])->name('update.status');
         Route::get('add', [TaskManager::class, 'addTask'])->name('add');
         Route::post('add', [TaskManager::class, 'addTaskPost'])->name('add.post');
     });
