@@ -14,6 +14,12 @@ class AuthManager extends Controller
         return view('auth.login');
     }
 
+    function logout() 
+    {
+        Auth::logout();
+        return redirect(route('login'))->with('success', 'Logged out successfully.');
+    }   
+    
     function loginPost(Request $request)
     {
         $request->validate([

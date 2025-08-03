@@ -9,7 +9,7 @@ class TaskManager extends Controller
 {
     function listTasks()
     {
-        $tasks = Tasks::where('status', 'pending')->get();
+        $tasks = Tasks::where('user_id', auth()->user()->id)->where('status', 'pending')->paginate(5); // Fetching only pending tasks for the home view
         return view('welcome', compact('tasks'));
     }
     function addTask() //request not needed as we're just returning a view
@@ -29,6 +29,8 @@ class TaskManager extends Controller
         ]);
 
         $task = new Tasks();
+        $task->user_id = auth()->user()->id; // Assuming the user is authenticated
+        $task->status = 'pending'; // Default status for new tasks
         $task->title = $request->input('title');
         $task->description = $request->input('description');
         $task->deadline = $request->input('deadline');
@@ -47,12 +49,26 @@ class TaskManager extends Controller
 
     function updateTaskStatus($id)
     {
-        if(Tasks::where('id', $id)->update(['status' => 'completed'])){
+        if(Tasks::where('user_id', auth()->user()->id)
+                ->where('id', $id)->update(['status' => 'completed'])
+            ){
             return redirect()->route('home')
                     ->with('success', 'Task status updated successfully!');
         } else {
             return redirect()->route('home')
                     ->with('error', 'Failed to update task status.');
+        }
+    }
+
+    function deleteTask($id)
+    {
+        if(Tasks::where('user_id', auth()->user()->id)
+            ->where('id', $id)->delete()){
+            return redirect()->route('home')
+                    ->with('success', 'Task has been deleted successfully!');
+        } else {
+            return redirect()->route('home')
+                    ->with('error', 'Failed to delete task.');
         }
     }
 

@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('login', [AuthManager::class, 'login'])
     ->name('login');
 
+Route::get('logout', [AuthManager::class, 'logout'])
+    ->name('logout');
+    
 Route::post('login', [AuthManager::class, 'loginPost'])
     ->name('login.post');
 
@@ -25,5 +28,6 @@ Route::middleware(['auth'])->group(function () { //only authenticated users can 
         Route::get('status/{id}', [TaskManager::class, 'updateTaskStatus'])->name('update.status');
         Route::get('add', [TaskManager::class, 'addTask'])->name('add');
         Route::post('add', [TaskManager::class, 'addTaskPost'])->name('add.post');
+        Route::get('delete/{id}', [TaskManager::class, 'deleteTask'])->name('delete');
     });
 });

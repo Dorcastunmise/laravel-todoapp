@@ -1,4 +1,4 @@
-@extends("layouts.default")
+@extends("layouts.auth")
 @section('styles')
     <style>
 
@@ -65,6 +65,7 @@
             @endif
 
             <button class="btn btn-primary w-100 py-2" type="submit">Log in</button> 
+            <a href="{{route('register')}}" class="text-center">Create Account</a>
             <p class="mt-5 mb-3 text-body-secondary">&copy; 2025</p> 
         </form> 
     </main> 
